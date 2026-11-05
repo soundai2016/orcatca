@@ -1,0 +1,94 @@
+name: semantic
+runtime:
+  device: npu
+  precision: fp32
+  nproc: 2
+  workers: 6
+  threads: 2
+  timeout_s: 3600
+  hccl_exec_timeout_s: 1800
+  hccl_connect_timeout_s: 600
+  timeout_margin_s: 300
+  allow_internal_format: true
+  jit_compile: false
+  deterministic: true
+  profile_steps: false
+data:
+  sample_rate: 16000
+  seconds: 5.0
+  n_fft: 512
+  hop: 160
+  min_hz: 200.0
+  max_hz: 7500.0
+  index_workers: 8
+  decode_workers: 8
+  split_seed: 1701
+  min_per_class: 10
+  min_recordings_per_class: 2
+  min_train_subtype_recordings: 2
+  folds: 3
+  select_fraction: 0.1
+  calibrate_fraction: 0.1
+  session_gap_seconds: 1800
+  block_hours: 24
+  decode_all_candidates: true
+  min_eval_subtype_blocks: 2
+  min_eval_subtype_recordings: 2
+  repair_subtype_coverage: true
+cache:
+  enabled: true
+  dtype: float16
+  shard_size: 512
+  budget_gib: 110
+  reserve_gib: 50
+  verify_sha256: true
+experiment:
+  folds: 3
+  methods:
+  - natural_mixstyle
+  - natural_subtype_mixstyle
+  - natural_coarse_mixstyle
+  - natural_threeclass_mixstyle
+  seeds:
+  - 17
+  - 29
+  - 43
+  epochs: 50
+  patience: 10
+  batch_size: 16
+  global_batch: 256
+  width: 32
+  dropout: 0.15
+  learning_rate: 0.0003
+  weight_decay: 0.001
+  label_smoothing: 0.02
+  warmup_epochs: 3
+  ema_decay: 0.995
+  log_every: 100
+  balance_strength: 0.75
+  max_weight: 10.0
+  subtype_weight: 0.5
+  consistency_weight: 0.5
+  consistency_warmup: 5
+  selection_metric: macro_pauc
+  selection_max_fpr: 0.1
+  tail_weight: 0.1
+  tail_fraction: 0.25
+  tail_warmup_epochs: 5
+  tail_min_recordings: 2
+augmentation:
+  probability: 0.5
+  filter_db: 6.0
+  knots: 8
+  mixstyle_alpha: 0.3
+evaluation:
+  fpr_targets:
+  - 0.01
+  - 0.05
+  bootstrap_repeats: 2000
+  bootstrap_seed: 2021
+  required_negative_subtypes:
+  - AB
+  - HW
+  min_negative_recordings: 2
+  min_negative_blocks: 2

@@ -1,0 +1,32 @@
+# Local raw recordings and runtime artifacts.
+dclde_2027_killer_whales/
+runs/*
+!runs/.gitkeep
+state/*
+!state/.gitkeep
+result/*
+!result/.gitkeep
+
+# Environments and build products.
+.venv/
+.env
+.env.*
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.cache/
+*.log
+.DS_Store
+.hf_release_complete
+# Large model, prediction and feature files.
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.npy
+*.npz
+*.sqlite
+*.db

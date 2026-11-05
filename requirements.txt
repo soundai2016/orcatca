@@ -1,0 +1,10 @@
+# Analysis, figure generation and release staging; install PyTorch/torch-npu separately for Ascend training.
+numpy>=1.26,<3
+scipy>=1.11,<2
+pandas>=2.0,<4
+matplotlib>=3.7,<4
+soundfile>=0.12,<1
+scikit-learn>=1.3,<2
+PyYAML>=6,<7
+loguru>=0.7,<0.8
+huggingface_hub>=0.34,<2
